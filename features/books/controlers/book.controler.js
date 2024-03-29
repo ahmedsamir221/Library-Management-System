@@ -20,27 +20,45 @@ module.exports.getBookById = async (req, res) => {
 };
 
 module.exports.createBook = async (req, res) => {
-  const book = await service.createBook(req.body);
+  let book = await service.getByISBN(req.body.isbn);
+  if (book)
+    return res
+      .status(400)
+      .send(generatefailureResponse("book with the same ISBN already exists."));
+
+  book = await service.createBook(req.body);
 
   res.status(201).send(generateSuccessResponse(book));
 };
 
 module.exports.updateBook = async (req, res) => {
-  const book = await service.updateBook(req.params.id, req.body);
-
-  if (!book)
+  const oldBook = await service.getBookById(req.params.id);
+  if (!oldBook)
     return res.status(404).send(generatefailureResponse("book not found"));
+
+  if (req.body.isbn) {
+    const anyBook = await service.getByISBN(req.body.isbn);
+    if (anyBook && anyBook.id != oldBook.id)
+      return res
+        .status(400)
+        .send(
+          generatefailureResponse("book with the same ISBN already exists.")
+        );
+  }
+
+  const book = await service.updateBook(req.params.id, req.body);
 
   res.send(generateSuccessResponse(book));
 };
 
 module.exports.deleteBook = async (req, res) => {
-  const book = await service.deleteBook(req.params.id);
-
-  if (!book)
+  const oldBook = await service.getBookById(req.params.id);
+  if (!oldBook)
     return res.status(404).send(generatefailureResponse("book not found"));
 
-  res.send(generateSuccessResponse());
+  await service.deleteBook(req.params.id);
+
+  res.send(generateSuccessResponse(oldBook));
 };
 
 module.exports.search = async (req, res) => {

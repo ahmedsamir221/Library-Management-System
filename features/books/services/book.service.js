@@ -14,13 +14,13 @@ module.exports.createBook = (book) => {
 
 module.exports.updateBook = async (id, newBook) => {
   const oldBook = await Book.findByPk(id);
-  if (!oldBook) return oldBook;
+
   return oldBook.update(newBook);
 };
 
 module.exports.deleteBook = async (id) => {
   const book = await Book.findByPk(id);
-  if (!book) return book;
+
   return book.destroy();
 };
 
@@ -42,6 +42,14 @@ module.exports.searchByAuthor = (author) => {
 
 module.exports.searchByISBN = (isbn) => {
   return Book.findAll({
+    where: {
+      isbn,
+    },
+  });
+};
+
+module.exports.getByISBN = (isbn) => {
+  return Book.findOne({
     where: {
       isbn,
     },
