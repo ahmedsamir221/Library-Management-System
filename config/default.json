@@ -1,0 +1,16 @@
+{
+  "jwtSecret": "123456",
+  "db": {
+    "dialect": "postgres",
+    "host": "localhost",
+    "username": "postgres",
+    "password": "123456",
+    "database": "postgres",
+    "pool": {
+      "max": 5,
+      "min": 0,
+      "acquire": 30000,
+      "idle": 10000
+    }
+  }
+}

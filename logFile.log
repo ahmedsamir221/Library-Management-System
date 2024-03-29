@@ -1,0 +1,32 @@
+{"level":"error","message":"invalid input syntax for type integer: \"search\" invalid input syntax for type integer: \"search\"","name":"SequelizeDatabaseError","original":{"code":"22P02","file":"numutils.c","length":117,"line":"617","name":"error","position":"113","routine":"pg_strtoint32_safe","severity":"ERROR","sql":"SELECT \"id\", \"title\", \"author\", \"isbn\", \"quantity\", \"shelf_location\" FROM \"Books\" AS \"Book\" WHERE \"Book\".\"id\" = 'search';"},"parameters":{},"parent":{"code":"22P02","file":"numutils.c","length":117,"line":"617","name":"error","position":"113","routine":"pg_strtoint32_safe","severity":"ERROR","sql":"SELECT \"id\", \"title\", \"author\", \"isbn\", \"quantity\", \"shelf_location\" FROM \"Books\" AS \"Book\" WHERE \"Book\".\"id\" = 'search';"},"sql":"SELECT \"id\", \"title\", \"author\", \"isbn\", \"quantity\", \"shelf_location\" FROM \"Books\" AS \"Book\" WHERE \"Book\".\"id\" = 'search';","stack":"Error\n    at Query.run (C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\node_modules\\sequelize\\lib\\dialects\\postgres\\query.js:50:25)\n    at C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\node_modules\\sequelize\\lib\\sequelize.js:315:28\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async PostgresQueryInterface.select (C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js:407:12)\n    at async Book.findAll (C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\node_modules\\sequelize\\lib\\model.js:1140:21)\n    at async Book.findOne (C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\node_modules\\sequelize\\lib\\model.js:1240:12)\n    at async Book.findByPk (C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\node_modules\\sequelize\\lib\\model.js:1221:12)\n    at async module.exports.getBookById (C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\features\\books\\controlers\\book.controler.js:14:16)"}
+{"level":"info","message":"listening in port 3000"}
+{"level":"info","message":"Connection to db has been established successfully."}
+{"level":"info","message":"All models were synchronized successfully."}
+{"level":"info","message":"listening in port 3000"}
+{"level":"info","message":"Connection to db has been established successfully."}
+{"level":"info","message":"All models were synchronized successfully."}
+{"level":"error","message":"invalid input syntax for type integer: \"search\" invalid input syntax for type integer: \"search\"","name":"SequelizeDatabaseError","original":{"code":"22P02","file":"numutils.c","length":117,"line":"617","name":"error","position":"113","routine":"pg_strtoint32_safe","severity":"ERROR","sql":"SELECT \"id\", \"title\", \"author\", \"isbn\", \"quantity\", \"shelf_location\" FROM \"Books\" AS \"Book\" WHERE \"Book\".\"id\" = 'search';"},"parameters":{},"parent":{"code":"22P02","file":"numutils.c","length":117,"line":"617","name":"error","position":"113","routine":"pg_strtoint32_safe","severity":"ERROR","sql":"SELECT \"id\", \"title\", \"author\", \"isbn\", \"quantity\", \"shelf_location\" FROM \"Books\" AS \"Book\" WHERE \"Book\".\"id\" = 'search';"},"sql":"SELECT \"id\", \"title\", \"author\", \"isbn\", \"quantity\", \"shelf_location\" FROM \"Books\" AS \"Book\" WHERE \"Book\".\"id\" = 'search';","stack":"Error\n    at Query.run (C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\node_modules\\sequelize\\lib\\dialects\\postgres\\query.js:50:25)\n    at C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\node_modules\\sequelize\\lib\\sequelize.js:315:28\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async PostgresQueryInterface.select (C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js:407:12)\n    at async Book.findAll (C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\node_modules\\sequelize\\lib\\model.js:1140:21)\n    at async Book.findOne (C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\node_modules\\sequelize\\lib\\model.js:1240:12)\n    at async Book.findByPk (C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\node_modules\\sequelize\\lib\\model.js:1221:12)\n    at async module.exports.getBookById (C:\\Users\\PC\\Downloads\\posta task\\Library Management System\\features\\books\\controlers\\book.controler.js:14:16)"}
+{"level":"info","message":"listening in port 3000"}
+{"level":"info","message":"Connection to db has been established successfully."}
+{"level":"info","message":"All models were synchronized successfully."}
+{"level":"info","message":"listening in port 3000"}
+{"level":"info","message":"Connection to db has been established successfully."}
+{"level":"info","message":"All models were synchronized successfully."}
+{"level":"info","message":"listening in port 3000"}
+{"level":"info","message":"Connection to db has been established successfully."}
+{"level":"info","message":"All models were synchronized successfully."}
+{"level":"info","message":"listening in port 3000"}
+{"level":"info","message":"Connection to db has been established successfully."}
+{"level":"info","message":"All models were synchronized successfully."}
+{"level":"info","message":"listening in port 3000"}
+{"level":"info","message":"Connection to db has been established successfully."}
+{"level":"info","message":"All models were synchronized successfully."}
+{"level":"info","message":"listening in port 3000"}
+{"level":"info","message":"Connection to db has been established successfully."}
+{"level":"info","message":"All models were synchronized successfully."}
+{"level":"info","message":"listening in port 3000"}
+{"level":"info","message":"Connection to db has been established successfully."}
+{"level":"info","message":"All models were synchronized successfully."}
+{"level":"info","message":"listening in port 3000"}
+{"level":"info","message":"Connection to db has been established successfully."}
+{"level":"info","message":"All models were synchronized successfully."}
