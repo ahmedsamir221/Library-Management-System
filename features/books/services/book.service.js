@@ -13,15 +13,18 @@ module.exports.createBook = (book) => {
 };
 
 module.exports.updateBook = async (id, newBook) => {
-  const oldBook = await Book.findByPk(id);
-
-  return oldBook.update(newBook);
+  const book = await Book.findByPk(id);
+  if (!book) return book;
+  return book.update(newBook);
 };
 
 module.exports.deleteBook = async (id) => {
   const book = await Book.findByPk(id);
+  if (!book) return book;
 
-  return book.destroy();
+  const deletedBook = book;
+  await book.destroy();
+  return deletedBook;
 };
 
 module.exports.searchByTitle = (title) => {

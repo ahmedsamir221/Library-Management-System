@@ -52,13 +52,11 @@ module.exports.updateBook = async (req, res) => {
 };
 
 module.exports.deleteBook = async (req, res) => {
-  const oldBook = await service.getBookById(req.params.id);
-  if (!oldBook)
+  const book = await service.deleteBook(req.params.id);
+  if (!book)
     return res.status(404).send(generatefailureResponse("book not found"));
 
-  await service.deleteBook(req.params.id);
-
-  res.send(generateSuccessResponse(oldBook));
+  res.send(generateSuccessResponse(book));
 };
 
 module.exports.search = async (req, res) => {

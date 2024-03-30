@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const { Book } = require("../../books/index");
+const { Book } = require("./book.model");
 const { Borrower } = require("../../borrowers/index");
 
 // Define BorrowedBook model
@@ -24,7 +24,6 @@ const BorrowedBook = global.sequelize.define(
     },
   },
   {
-    unique: false,
     timestamps: false,
     indexes: [
       {
@@ -39,7 +38,11 @@ const BorrowedBook = global.sequelize.define(
   }
 );
 
-Book.belongsToMany(Borrower, { through: BorrowedBook });
-Borrower.belongsToMany(Book, { through: BorrowedBook });
+Book.belongsToMany(Borrower, {
+  through: { model: BorrowedBook, unique: false },
+});
+Borrower.belongsToMany(Book, {
+  through: { model: BorrowedBook, unique: false },
+});
 
 module.exports.BorrowedBook = BorrowedBook;

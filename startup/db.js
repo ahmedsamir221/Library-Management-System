@@ -29,10 +29,10 @@ global.sequelize = sequelize;
   //define the models
   require("../features/books/models/book.model");
   require("../features/borrowers/models/borrower.model");
-  require("../features/BorrowedBooks/models/borrowedBook.model");
+  require("../features/books/models/borrowedBook.model");
 
   //synchronize the models to the database
-  await sequelize.sync({ alter: true });
+  await sequelize.sync();
   winston.info("All models were synchronized successfully.");
 })();
 
