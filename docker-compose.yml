@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  backend: 
+    depends_on: 
+      - db
+    build: .
+    ports: 
+      - 3000:3000
+    volumes:
+      - logs:/app/logs
+
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    ports: 
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - library:/var/lib/postgresql/data
+
+volumes:
+  library:
+  logs:
+
+

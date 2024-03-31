@@ -4,15 +4,12 @@ const updateBookJoiSchema = require("../joiSchemas/updateBook.joiSchema");
 const borrowBookJoiSchema = require("../joiSchemas/borrowBook.joiSchema");
 const bookControler = require("../controlers/book.controler");
 const borrowingControler = require("../controlers/borrowing.controler");
+const authMiddleware = require("../../../middlewares/auth");
 const express = require("express");
 const router = express.Router();
 
 router.get("/search", bookControler.search);
-router.post(
-  "/:bookId/borrow/:borrowerId",
-  validator(borrowBookJoiSchema),
-  borrowingControler.borrowBook
-);
+router.post( "/:bookId/borrow/:borrowerId", validator(borrowBookJoiSchema), borrowingControler.borrowBook);
 router.post("/:bookId/return/:borrowerId", borrowingControler.returnBook);
 router.get("/", bookControler.getAllBooks);
 router.get("/:id", bookControler.getBookById);

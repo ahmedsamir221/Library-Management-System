@@ -30,6 +30,7 @@ global.sequelize = sequelize;
   require("../features/books/models/book.model");
   require("../features/borrowers/models/borrower.model");
   require("../features/books/models/borrowedBook.model");
+  require("../features/users/models/user.model");
 
   //synchronize the models to the database
   await sequelize.sync();
