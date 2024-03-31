@@ -62,3 +62,11 @@ module.exports.deleteBorrower = async (req, res) => {
 
   res.send(generateSuccessResponse(borrower));
 };
+
+module.exports.getAllBooksByBorrowerId = async (req, res) => {
+  const books = await service.getAllBooksByBorrowerId(req.params.id);
+  if (!books)
+    return res.status(404).send(generatefailureResponse("borrower not found"));
+
+  res.send(generateSuccessResponse(books));
+};
