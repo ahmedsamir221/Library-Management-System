@@ -1,40 +1,55 @@
 const { Op } = require("sequelize");
 const { Borrower } = require("../models/borrower.model");
-const { Book } = require("../../books/index");
+const config = require("config");
+const {isValidPositaveInteger} = require('../../../utils/commonValidation')
 
-module.exports.getAllBorrowers = () => {
-  return Borrower.findAll();
+const getAllBorrowers = function (pageNumber) {
+  const limit = config.get("pageSize");
+  const offset = (pageNumber - 1) * limit;
+
+  return Borrower.findAll({ order: [["id"]], offset, limit });
 };
 
-module.exports.getBorrowerById = (id) => {
+const getBorrowerById = function (id) {
+  if (!isValidPositaveInteger(id)) return null;
+
   return Borrower.findByPk(id);
 };
 
-module.exports.createBorrower = (borrower) => {
-  return Borrower.create(borrower);
+const createBorrower = function (borrower, transaction) {
+  return Borrower.create(borrower, { transaction });
 };
 
-module.exports.updateBorrower = async (id, newBorrower) => {
-  const borrower = await Borrower.findByPk(id);
-  if (!borrower) return borrower;
+const updateBorrower = async function (id, newBorrower, transaction) {
+  if (!isValidPositaveInteger(id)) return null;
 
-  return borrower.update(newBorrower);
+  const [affectedRows] = await Borrower.update(newBorrower, {
+    where: { id },
+    transaction,
+  });
+
+  if (!affectedRows) return null;
+
+  return Borrower.findByPk(id, { transaction });
 };
 
-module.exports.deleteBorrower = async (id) => {
-  const borrower = await Borrower.findByPk(id);
-  if (!borrower) return borrower;
+const deleteBorrower = async function (id, transaction) {
+  if (!isValidPositaveInteger(id)) return null;
 
-  const deletedBorrower = borrower;
-  await borrower.destroy();
-  return deletedBorrower;
+  const affectedRows = await Borrower.destroy({ where: { id }, transaction });
+
+  if (!affectedRows) return null;
+
+  return {};
 };
 
-module.exports.getBorrowerByEmail = (email) => {
+const getBorrowerByEmail = function (email) {
   return Borrower.findOne({ where: { email } });
 };
 
-module.exports.getAllBooksByBorrowerId = async (id) => {
+const getCurrentlyBorrowedBooksByBorrowerId = async function (id) {
+  if (!isValidPositaveInteger(id)) return null;
+  
   const borrower = await Borrower.findByPk(id);
   if (!borrower) return null;
 
@@ -51,4 +66,14 @@ module.exports.getAllBooksByBorrowerId = async (id) => {
     delete newBook["BorrowedBook"];
     return newBook;
   });
+};
+
+module.exports = {
+  getAllBorrowers,
+  getBorrowerById,
+  createBorrower,
+  updateBorrower,
+  deleteBorrower,
+  getBorrowerByEmail,
+  getCurrentlyBorrowedBooksByBorrowerId,
 };

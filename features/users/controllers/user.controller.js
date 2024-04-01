@@ -5,12 +5,20 @@ const {
 } = require("../../../utils/endUserResponses");
 
 module.exports.createUser = async (req, res) => {
-  let user = await userService.getUserByEmail(req.body.email);
-  if (user)
-    return res
-      .status(400)
-      .send(generatefailureResponse("email is already exsit"));
+  const transaction = await global.sequelize.transaction();
+  try {
+    if (await userService.isEmailExsit(req.body.email))
+      return res
+        .status(400)
+        .send(generatefailureResponse("email is already exsit"));
 
-  user = await userService.createUser(req.body);
-  res.status(201).send(generateSuccessResponse(user));
+    const createdUser = await userService.createUser(req.body, transaction);
+
+    await transaction.commit();
+    res.status(201).send(generateSuccessResponse(createdUser));
+  } catch (ex) {
+    await transaction.rollback();
+    // throw error to be logged and handled by error middleware
+    throw new Error(ex);
+  }
 };

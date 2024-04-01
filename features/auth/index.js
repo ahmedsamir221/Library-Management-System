@@ -1,7 +1,7 @@
-const authRouter = require("./routes/auth.router");
-const authService = require("./services/auth.service");
+const loginRouter = require("./routes/login.router");
+const loginService = require("./services/login.service");
 
 module.exports = {
-  authRouter,
-  authService,
+  loginRouter,
+  loginService,
 };

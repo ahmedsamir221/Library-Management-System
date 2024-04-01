@@ -1,19 +1,16 @@
+// create validation middleware using joi schema
 const validator = require("../../../middlewares/validator");
 const createBorrowerJoiSchema = require("../joiSchemas/createBorrower.joiSchema");
 const updateBorrowerJoiSchema = require("../joiSchemas/updateBorrower.joiSchema");
-const controler = require("../controlers/borrower.controler");
+const borrowerControler = require("../controlers/borrower.controler");
 const express = require("express");
-const router = express.Router();
+const borrowerRouter = express.Router();
 
-router.get("/:id/books", controler.getAllBooksByBorrowerId);
-router.get("/", controler.getAllBorrowers);
-router.get("/:id", controler.getBorrowerById);
-router.post("/", validator(createBorrowerJoiSchema), controler.createBorrower);
-router.patch(
-  "/:id",
-  validator(updateBorrowerJoiSchema),
-  controler.updateBorrower
-);
-router.delete("/:id", controler.deleteBorrower);
+borrowerRouter.get("/:id/books", borrowerControler.getAllBooksByBorrowerId);
+borrowerRouter.get("/", borrowerControler.getAllBorrowers);
+borrowerRouter.get("/:id", borrowerControler.getBorrowerById);
+borrowerRouter.post("/", validator(createBorrowerJoiSchema), borrowerControler.createBorrower);
+borrowerRouter.patch("/:id", validator(updateBorrowerJoiSchema), borrowerControler.updateBorrower);
+borrowerRouter.delete("/:id", borrowerControler.deleteBorrower);
 
-module.exports = router;
+module.exports = borrowerRouter;

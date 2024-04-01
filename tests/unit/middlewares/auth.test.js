@@ -16,7 +16,7 @@ const sequelize = new Sequelize(
   }
 );
 global.sequelize = sequelize;
-const { authService } = require("../../../features/auth/index");
+const { loginService } = require("../../../features/auth/index");
 const auth = require("../../../middlewares/auth");
 
 describe("auth middleware", () => {
@@ -26,7 +26,7 @@ describe("auth middleware", () => {
       name: "ahmed",
       email: "ahmed@gmail.com",
     };
-    const accessToken = authService.generateAccessToken(payload);
+    const accessToken = loginService.generateAccessToken(payload);
 
     const req = {
       header: jest.fn().mockReturnValue(accessToken),

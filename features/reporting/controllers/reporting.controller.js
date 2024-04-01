@@ -1,7 +1,7 @@
 const reportingService = require("../services/reporting.service");
 const { generatefailureResponse } = require("../../../utils/endUserResponses");
 
-module.exports.getBorrowingProcesses = async (req, res) => {
+module.exports.getBorrowingRequests = async (req, res) => {
   if (
     !reportingService.isValidateRangeDates(req.query.fromDate, req.query.toDate)
   )
@@ -13,7 +13,7 @@ module.exports.getBorrowingProcesses = async (req, res) => {
         )
       );
 
-  const csvData = await reportingService.getBorrowingProcesses(
+  const csvData = await reportingService.getBorrowingRequests(
     req.query.fromDate,
     req.query.toDate
   );
@@ -21,7 +21,7 @@ module.exports.getBorrowingProcesses = async (req, res) => {
   res.setHeader("Content-Type", "text/csv");
   res.setHeader(
     "Content-Disposition",
-    `attachment; filename=Borrowing_Processes_report.csv`
+    `attachment; filename=Borrowing_Requests_report.csv`
   );
 
   res.send(csvData);

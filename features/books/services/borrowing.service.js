@@ -1,55 +1,55 @@
 const { Op } = require("sequelize");
 const { Book } = require("../models/book.model");
 const { BorrowedBook } = require("../models/borrowedBook.model");
+const { isValidPositaveInteger } = require("../../../utils/commonValidation");
 
-async function borrowBook(bookId, borrowerId, dueDate) {
-  const transaction = await global.sequelize.transaction();
-  try {
-    const [result] = await Book.decrement(
-      { quantity: 1 },
-      { where: { id: bookId, quantity: { [Op.gt]: 0 } } }
-    );
-    if (!result[1]) return null;
+const borrowBook = async function (bookId, borrowerId, dueDate, transaction) {
+  if (!isValidPositaveInteger(bookId) || !isValidPositaveInteger(borrowerId))
+    return null;
 
-    const borrowedBook = await BorrowedBook.create({
+  const [result] = await Book.decrement(
+    { quantity: 1 },
+    { where: { id: bookId, quantity: { [Op.gt]: 0 } }, transaction }
+  );
+  // check if the quantity is decremented, maybe another transaction updated the record and the quantity became zero
+  const affectedRows = result[1];
+  if (!affectedRows) return null;
+
+  const borrowedBook = await BorrowedBook.create(
+    {
       BookId: bookId,
       BorrowerId: borrowerId,
       due_date: dueDate,
-    });
+    },
+    { transaction }
+  );
 
-    await transaction.commit();
+  return borrowedBook;
+};
 
-    return borrowedBook;
-  } catch (ex) {
-    await transaction.rollback();
+const returnBook = async function (bookId, borrowerId, transaction) {
+  if (!isValidPositaveInteger(bookId) || !isValidPositaveInteger(borrowerId))
+    return null;
 
-    throw new Error(ex);
-  }
-}
+  let borrowedBook = await getActiveBorrowing(bookId, borrowerId);
+  if (!borrowedBook) return null;
 
-async function returnBook(bookId, borrowerId) {
-  const transaction = await global.sequelize.transaction();
-  try {
-    let borrowedBook = await getActiveBorrowing(bookId, borrowerId);
-    if (!borrowedBook) return null;
-
-    borrowedBook = await borrowedBook.update({
+  borrowedBook = await borrowedBook.update(
+    {
       return_date: new Date(),
-    });
+    },
+    { transaction }
+  );
 
-    await Book.increment({ quantity: 1 }, { where: { id: bookId } });
+  await Book.increment({ quantity: 1 }, { where: { id: bookId }, transaction });
 
-    await transaction.commit();
+  return borrowedBook;
+};
 
-    return borrowedBook;
-  } catch (ex) {
-    await transaction.rollback();
+const getActiveBorrowing = function (bookId, borrowerId) {
+  if (!isValidPositaveInteger(bookId) || !isValidPositaveInteger(borrowerId))
+    return null;
 
-    throw new Error(ex);
-  }
-}
-
-function getActiveBorrowing(bookId, borrowerId) {
   return BorrowedBook.findOne({
     where: {
       BookId: bookId,
@@ -57,6 +57,6 @@ function getActiveBorrowing(bookId, borrowerId) {
       return_date: { [Op.is]: null },
     },
   });
-}
+};
 
 module.exports = { getActiveBorrowing, borrowBook, returnBook };

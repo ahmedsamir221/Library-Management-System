@@ -2,7 +2,7 @@ const moment = require("moment");
 let converter = require("json-2-csv");
 const { QueryTypes } = require("sequelize");
 
-module.exports.getBorrowingProcesses = async function (fromDate, toDate) {
+const getBorrowingRequests = async function (fromDate, toDate) {
   const rawQuery = `
 SELECT 
 book."title" as "book title",
@@ -27,7 +27,7 @@ order by borrowing."borrowed_date"`;
   return converter.json2csv(reportData);
 };
 
-module.exports.getOverdueBorrows = async function (fromDate, toDate) {
+const getOverdueBorrows = async function (fromDate, toDate) {
   const rawQuery = `
 SELECT 
 book."title" as "book title",
@@ -61,9 +61,15 @@ order by borrowing."borrowed_date"`;
   return converter.json2csv(reportData);
 };
 
-module.exports.isValidateRangeDates = function (fromDate, toDate) {
+const isValidateRangeDates = function (fromDate, toDate) {
   return (
     moment(fromDate, "YYYY-MM-DD", true).isValid() &&
     moment(toDate, "YYYY-MM-DD", true).isValid()
   );
+};
+
+module.exports = {
+  getBorrowingRequests,
+  getOverdueBorrows,
+  isValidateRangeDates,
 };

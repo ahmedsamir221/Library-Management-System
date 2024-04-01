@@ -1,11 +1,12 @@
 {
+  "pageSize": 3,
   "jwt": {
     "secret": "123456",
     "expireIn": "30m"
   },
   "db": {
     "dialect": "postgres",
-    "host": "db",
+    "host": "localhost",
     "username": "postgres",
     "password": "123456",
     "database": "postgres",

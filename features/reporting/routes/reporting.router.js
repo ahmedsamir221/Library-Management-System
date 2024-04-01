@@ -1,17 +1,18 @@
 const reportingControler = require("../controllers/reporting.controller");
+// rate limit middle ware
 const limiter = require("../../../middlewares/rateLimiting");
 const express = require("express");
-const router = express.Router();
+const reportingRouter = express.Router();
 
-router.get(
-  "/borrowingProcesses",
+reportingRouter.get(
+  "/borrowingRequests",
   limiter,
-  reportingControler.getBorrowingProcesses
+  reportingControler.getBorrowingRequests
 );
-router.get(
+reportingRouter.get(
   "/overdueBorrows",
   limiter,
   reportingControler.getOverdueBorrows
 );
 
-module.exports = router;
+module.exports = reportingRouter;
