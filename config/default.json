@@ -6,7 +6,7 @@
   },
   "db": {
     "dialect": "postgres",
-    "host": "localhost",
+    "host": "db",
     "username": "postgres",
     "password": "123456",
     "database": "postgres",
